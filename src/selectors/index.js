@@ -2,7 +2,7 @@ import { createSelector } from 'reselect'
 
 export const articlesMapSelector = (state) => state.articles.entities
 export const articlesLoadingSelector = (state) => state.articles.loading
-export const commentsSelector = (state) => state.comments
+export const commentsSelector = (state) => state.comments.entities
 export const dateRangeSelector = (state) => state.filters.dateRange
 export const selectedSelector = (state) => state.filters.selected
 
@@ -10,6 +10,12 @@ export const idSelector = (_, props) => props.id
 export const articlesListSelector = createSelector(
   articlesMapSelector,
   (articlesMap) => articlesMap.valueSeq().toArray()
+)
+
+export const articleSelector = createSelector(
+  articlesMapSelector,
+  idSelector,
+  (articles, id) => articles.get(id)
 )
 
 export const filtratedArticles = createSelector(
@@ -37,3 +43,17 @@ export const createCommentSelector = () =>
     console.log('---', 'comment selector', id)
     return comments.get(id)
   })
+
+export const totalCommentsSelector = (state) => state.comments.total
+export const commentsPagenationSelector = (state) => state.comments.pagination
+export const pageSelector = (_, props) => props.page
+export const commentsPageIdsSelector = createSelector(
+  commentsPagenationSelector,
+  pageSelector,
+  (pagination, page) => pagination.getIn([page, 'ids'])
+)
+export const commentsPageLoadingSelector = createSelector(
+  commentsPagenationSelector,
+  pageSelector,
+  (pagination, page) => pagination.getIn([page, 'loading'])
+)

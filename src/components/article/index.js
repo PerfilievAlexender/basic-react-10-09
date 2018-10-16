@@ -29,10 +29,18 @@ class Article extends PureComponent {
     })
   }
 
-  componentDidMount() {
+  loadingArticles = () => {
     const { article, id, loadArticleById } = this.props
 
     if (!article || !article.text) loadArticleById(id)
+  }
+
+  componentDidMount() {
+    this.loadingArticles()
+  }
+
+  componentWillMount() {
+    this.loadingArticles()
   }
 
   render() {

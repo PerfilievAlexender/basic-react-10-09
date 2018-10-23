@@ -28,7 +28,7 @@ class App extends Component {
             </NavLink>
           </div>
           <div>
-            <NavLink to="/comments">comments</NavLink>
+            <NavLink to="/comment">comments</NavLink>
           </div>
         </div>
         <Switch>
@@ -39,7 +39,7 @@ class App extends Component {
             render={() => <h1>New Article Page</h1>}
           />
           <Route path="/articles" component={ArticlesPage} />
-          <Route path="/api/comment" component={CommentPage} />
+          <Route path="/comment" component={CommentPage} />
           <Route path="*" render={() => <h1>Not Found Page</h1>} />
         </Switch>
       </div>

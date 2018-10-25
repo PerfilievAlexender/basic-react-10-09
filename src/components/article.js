@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-function Article({ article, isOpen, toggleOpen }) {
-  return (
-    <div>
+class Article extends Component {
+  render() {
+    const { article, isOpen } = this.props
+    return (
       <div>
-        <h3>{article.title}</h3>
-        <button onClick={toggleOpen}>{isOpen ? 'close' : 'open'}</button>
+        <button> open</button>
+        {isOpen && article.text}
       </div>
-      {isOpen && <section>{article.text}</section>}
-    </div>
-  )
+    )
+  }
 }
 
 export default Article

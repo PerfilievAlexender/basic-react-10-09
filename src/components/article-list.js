@@ -2,35 +2,27 @@ import React, { Component } from 'react'
 import Article from './article'
 
 class ArticleList extends Component {
-  constructor(...args) {
-    super(...args)
-
-    this.state = {
-      articleId: null
-    }
+  state = {
+    openArticleId: '',
+    isOpen: false
   }
-  /*
-    state = {
-        articleId: null
-    }
-*/
 
   render() {
-    return <ul>{this.body}</ul>
-  }
+    const { articles } = this.props
 
-  toggleOpenArticle = (articleId) => () => this.setState({ articleId })
-
-  get body() {
-    return this.props.articles.map((article) => (
+    const articlesList = articles.map((article) => (
       <li key={article.id}>
+        {article.title}
+
         <Article
           article={article}
-          isOpen={this.state.articleId === article.id}
-          toggleOpen={this.toggleOpenArticle(article.id)}
+          id={this.state.openArticleId}
+          open={this.state.isOpen}
         />
       </li>
     ))
+
+    return <div>{articlesList}</div>
   }
 }
 

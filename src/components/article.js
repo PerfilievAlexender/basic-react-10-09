@@ -6,12 +6,14 @@ class Article extends PureComponent {
     const text = isOpen ? 'close' : 'open'
     return (
       <div>
-        <h3>{article.title}</h3>
+        <h3 ref={this.titleRef}>{article.title}</h3>
         <button onClick={this.handleClick}> {text} </button>
         <div>{isOpen && article.text}</div>
       </div>
     )
   }
+
+  titleRef = (ref) => console.log(ref)
 
   handleClick = () => this.props.toggleOpen(this.props.article.id)
 }

@@ -3,8 +3,15 @@ import Article from './article'
 
 class ArticleList extends Component {
   state = {
-    openArticleId: '',
-    isOpen: false
+    articleId: null
+  }
+
+  toggleOpen = (articleId) => () => {
+    if (articleId === this.state.articleId) {
+      this.setState({ articleId: null })
+    } else {
+      this.setState({ articleId })
+    }
   }
 
   render() {
@@ -12,17 +19,15 @@ class ArticleList extends Component {
 
     const articlesList = articles.map((article) => (
       <li key={article.id}>
-        {article.title}
-
         <Article
           article={article}
-          id={this.state.openArticleId}
-          open={this.state.isOpen}
+          toggleOpen={this.toggleOpen(article.id)}
+          isOpen={this.state.articleId === article.id}
         />
       </li>
     ))
 
-    return <div>{articlesList}</div>
+    return <ul>{articlesList}</ul>
   }
 }
 

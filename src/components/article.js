@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 
 class Article extends Component {
   render() {
-    const { article, isOpen } = this.props
+    const { article, isOpen, toggleOpen } = this.props
+    const text = isOpen ? 'close' : 'open'
     return (
       <div>
-        <button> open</button>
-        {isOpen && article.text}
+        <h3>{article.title}</h3>
+        <button onClick={toggleOpen}> {text} </button>
+        <div>{isOpen && article.text}</div>
       </div>
     )
   }

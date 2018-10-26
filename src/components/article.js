@@ -1,17 +1,19 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
-class Article extends Component {
+class Article extends PureComponent {
   render() {
-    const { article, isOpen, toggleOpen } = this.props
+    const { article, isOpen } = this.props
     const text = isOpen ? 'close' : 'open'
     return (
       <div>
         <h3>{article.title}</h3>
-        <button onClick={toggleOpen}> {text} </button>
+        <button onClick={this.handleClick}> {text} </button>
         <div>{isOpen && article.text}</div>
       </div>
     )
   }
+
+  handleClick = () => this.props.toggleOpen(this.props.article.id)
 }
 
 export default Article

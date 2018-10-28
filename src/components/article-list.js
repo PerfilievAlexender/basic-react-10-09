@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import Article from './article'
+import Article from './article/index'
 import accordion from '../decorators/accordion'
+import PropTypes from 'prop-types'
 
 class ArticleList extends Component {
   render() {
@@ -18,6 +19,10 @@ class ArticleList extends Component {
 
     return <ul>{articlesList}</ul>
   }
+}
+
+ArticleList.propTypes = {
+  articles: PropTypes.array.isRequired
 }
 
 const ArticleListWithAccordion = accordion(ArticleList)

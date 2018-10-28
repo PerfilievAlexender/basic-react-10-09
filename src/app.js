@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import ArticleList from './components/article-list'
 import articles from './fixtures'
-import SelectFilter from './filters/select'
-import DayPickerFilter from './filters/dayPicker'
+import SelectFilter from './components/filters/select'
+import DayPickerFilter from './components/filters/dayPicker'
 
 class App extends Component {
   render() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
-import articles from '../fixtures'
+import articles from '../../fixtures'
 
 class SelectFilter extends Component {
   state = {

@@ -10,7 +10,9 @@ class Article extends PureComponent {
     return (
       <div>
         <h3 ref={this.titleRef}>{article.title}</h3>
-        <button onClick={this.handleClick}>{isOpen ? 'close' : 'open'}</button>
+        <button onClick={this.handleClick} className="test_openArticle">
+          {isOpen ? 'close' : 'open'}
+        </button>
         <CSSTransition
           transitionName="article"
           transitionEnterTimeout={500}
@@ -28,7 +30,7 @@ class Article extends PureComponent {
       return null
     }
     return (
-      <div>
+      <div className="test_article--body">
         {article.text}
         <CommentList comments={article.comments} isOpen={isOpen} />
       </div>

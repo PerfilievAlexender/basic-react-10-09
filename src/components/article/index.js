@@ -3,16 +3,21 @@ import CommentList from '../commentList/index'
 import PropTypes from 'prop-types'
 import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
+import { connect } from 'react-redux'
+import { deleteArticle } from '../../ac'
 
 class Article extends PureComponent {
   render() {
     const { article, isOpen } = this.props
     return (
       <div>
-        <h3 ref={this.titleRef}>{article.title}</h3>
-        <button onClick={this.handleClick} className="test_openArticle">
-          {isOpen ? 'close' : 'open'}
-        </button>
+        <div>
+          <h3 ref={this.titleRef}>{article.title}</h3>
+          <button onClick={this.handleClick} className="test_openArticle">
+            {isOpen ? 'close' : 'open'}
+          </button>
+          <button onClick={this.handleDeleteClick}>delete</button>
+        </div>
         <CSSTransition
           transitionName="article"
           transitionEnterTimeout={500}
@@ -40,6 +45,11 @@ class Article extends PureComponent {
   titleRef = (ref) => console.log(ref)
 
   handleClick = () => this.props.toggleOpen(this.props.article.id)
+
+  handleDeleteClick = () => {
+    const { deleteArticle, article } = this.props
+    deleteArticle(article.id)
+  }
 }
 
 Article.propTypes = {
@@ -48,4 +58,7 @@ Article.propTypes = {
   article: PropTypes.object.isRequired
 }
 
-export default Article
+export default connect(
+  null,
+  { deleteArticle }
+)(Article)

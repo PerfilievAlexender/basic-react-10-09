@@ -32,6 +32,14 @@ ArticleList.propTypes = {
 }
 
 const ArticleListWithAccordion = accordion(ArticleList)
-export default connect((store) => ({
-  articles: store.articles
-}))(ArticleListWithAccordion)
+export default connect((store) => {
+  const articles1 = store.articles
+  const selected1 = store.selected.payload ? store.selected.payload : []
+  const selectedArticles = articles1.filter((article) =>
+    selected1.find((sel) => sel.value === article.id)
+  )
+
+  return {
+    articles: selectedArticles.length > 0 ? selectedArticles : store.articles
+  }
+})(ArticleListWithAccordion)

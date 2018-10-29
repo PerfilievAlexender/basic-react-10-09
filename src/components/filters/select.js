@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
-import articles from '../../fixtures'
+import { connect } from 'react-redux'
+import { selectArticles } from '../../ac'
 
 class SelectFilter extends Component {
   state = {
@@ -12,6 +13,7 @@ class SelectFilter extends Component {
   }
 
   render() {
+    const { articles } = this.props
     const options = articles.map((article) => ({
       label: article.title,
       value: article.id
@@ -22,10 +24,21 @@ class SelectFilter extends Component {
           options={options}
           value={this.state.selectedOption}
           onChange={this.handleChange}
+          isMulti
         />
       </div>
     )
   }
+
+  componentDidUpdate() {
+    const { selectArticles } = this.props
+    selectArticles(this.state.selectedOption)
+  }
 }
 
-export default SelectFilter
+export default connect(
+  (store) => ({
+    articles: store.articles
+  }),
+  { selectArticles }
+)(SelectFilter)

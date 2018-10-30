@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
 import counter from './counter'
 import articles from './articles'
-import selected from './filter'
+import filters from './filter'
 
 const reduser = combineReducers({
   counter,
   articles,
-  selected
+  filters
 })
 
 export default reduser

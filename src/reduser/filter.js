@@ -1,14 +1,22 @@
-import { SELECT } from '../constants'
+import { SELECT, SELECT_DATE } from '../constants'
 
-const selectedArticles = []
+const defaultArticles = {
+  selected: [],
+  dateRange: {
+    from: null,
+    to: null
+  }
+}
 
-export default (filteredArticles = selectedArticles, action) => {
+export default (filters = defaultArticles, action) => {
   const { type, payload } = action
 
   switch (type) {
     case SELECT:
-      return { ...filteredArticles, payload }
+      return { ...filters, selected: payload.selected }
+    case SELECT_DATE:
+      return { ...filters, dateRange: payload.dateRange }
     default:
-      return filteredArticles
+      return filters
   }
 }

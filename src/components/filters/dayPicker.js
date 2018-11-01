@@ -3,6 +3,7 @@ import DayPicker, { DateUtils } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
 import { selectDateRange } from '../../ac'
 import { connect } from 'react-redux'
+import { dateSelector } from '../../selectors'
 
 class DayPickerFilter extends Component {
   handleDayClick = (day) => {
@@ -32,7 +33,7 @@ class DayPickerFilter extends Component {
 
 export default connect(
   (store) => ({
-    range: store.filters.dateRange
+    range: dateSelector(store)
   }),
   { selectDateRange }
 )(DayPickerFilter)

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "jest-cli": "^20.0.4",
+    "normalizr": "^3.3.0",
     "prop-types": "^15.6.2",
     "react": "^16.5.0",
     "react-addons-css-transition-group": "^15.6.2",

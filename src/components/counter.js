@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 
 class Counter extends Component {
   render() {
+    console.log('--- counter')
     const { number, handleIncrement } = this.props
     return (
       <div>

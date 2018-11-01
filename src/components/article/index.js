@@ -42,7 +42,7 @@ class Article extends PureComponent {
     )
   }
 
-  titleRef = (ref) => console.log(ref)
+  //titleRef = (ref) => console.log(ref)
 
   handleClick = () => this.props.toggleOpen(this.props.article.id)
 

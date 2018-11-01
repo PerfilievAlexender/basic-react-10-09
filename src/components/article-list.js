@@ -3,6 +3,7 @@ import Article from './article/index'
 import accordion from '../decorators/accordion'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { filteredArticles } from '../selectors'
 
 export class ArticleList extends Component {
   render() {
@@ -33,20 +34,7 @@ ArticleList.propTypes = {
 
 const ArticleListWithAccordion = accordion(ArticleList)
 
-export default connect((store) => {
-  const {
-    selected,
-    dateRange: { from, to }
-  } = store.filters
-
-  const filteredArticles = store.articles.filter((article) => {
-    const published = Date.parse(article.date)
-
-    return (
-      (!selected.length ||
-        selected.find((select) => select.value === article.id)) &&
-      (!from || !to || (published > from && published < to))
-    )
-  })
-  return { articles: filteredArticles }
+export default connect((state) => {
+  console.log('--- connect')
+  return { articles: filteredArticles(state) }
 })(ArticleListWithAccordion)

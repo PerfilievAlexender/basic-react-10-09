@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { selectedComments } from '../selectors'
 
 class Comment extends Component {
   render() {
@@ -19,5 +20,5 @@ Comment.propTypes = {
 }
 
 export default connect((state, ownProps) => ({
-  comment: state.comments.find((comment) => comment.id === ownProps.id)
+  comment: selectedComments(state, ownProps)
 }))(Comment)

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 class Comment extends Component {
   render() {
@@ -17,4 +18,6 @@ Comment.propTypes = {
   comment: PropTypes.object
 }
 
-export default Comment
+export default connect((state, ownProps) => ({
+  comment: state.comments.find((comment) => comment.id === ownProps.id)
+}))(Comment)

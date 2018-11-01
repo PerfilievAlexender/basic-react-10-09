@@ -30,9 +30,9 @@ class CommentList extends Component {
   get body() {
     const { comments, isOpen, openItem } = this.props
     const commentList = comments ? (
-      comments.map((comment) => (
-        <li key={comment.id} className="test_comment">
-          <Comment comment={comment} />
+      comments.map((id) => (
+        <li key={id} className="test_comment">
+          <Comment id={id} />
         </li>
       ))
     ) : (

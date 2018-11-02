@@ -1,10 +1,6 @@
 import { normalizedComments } from '../fixtures'
+import { arrToObj } from './utils'
 
-const initialState = normalizedComments.reduce(
-  (acc, comment) => ({ ...acc, [comment.id]: comment }),
-  {}
-)
-
-export default (state = initialState, action) => {
+export default (state = arrToObj(normalizedComments), action) => {
   return state
 }

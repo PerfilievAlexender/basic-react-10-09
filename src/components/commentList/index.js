@@ -4,6 +4,7 @@ import toggleOpen from '../../decorators/toggleOpen'
 import PropTypes from 'prop-types'
 import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
+import CommentForm from '../commentForm'
 
 class CommentList extends Component {
   render() {
@@ -23,6 +24,7 @@ class CommentList extends Component {
         >
           {this.body}
         </CSSTransition>
+        <CommentForm />
       </div>
     )
   }

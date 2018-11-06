@@ -12,7 +12,7 @@ export class ArticleList extends Component {
     const articlesList = articles.map((article) => (
       <li key={article.id} className="test_article-list--item">
         <Article
-          article={article}
+          id={article.id}
           isOpen={openItemId === article.id}
           toggleOpen={toggleOpenItem}
         />

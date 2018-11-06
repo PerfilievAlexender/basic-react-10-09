@@ -5,6 +5,8 @@ export const dateSelector = (state) => state.filters.dateRange
 export const articlesMapSelector = (state) => state.articles
 export const commentsId = (_, ownProps) => ownProps.id
 export const commentsData = (state) => state.comments
+export const articleId = (_, ownProps) => ownProps.id
+export const articlesData = (state) => state.articles
 
 export const articlesListSelector = createSelector(
   articlesMapSelector,
@@ -16,6 +18,14 @@ export const selectedComments = createSelector(
   commentsId,
   (comments, id) => {
     return comments[id]
+  }
+)
+
+export const selectedArticles = createSelector(
+  articlesData,
+  articleId,
+  (articles, id) => {
+    return articles[id]
   }
 )
 

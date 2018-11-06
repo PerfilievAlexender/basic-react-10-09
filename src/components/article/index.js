@@ -5,6 +5,7 @@ import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
 import { connect } from 'react-redux'
 import { deleteArticle } from '../../ac'
+import { selectedArticles } from '../../selectors'
 
 class Article extends PureComponent {
   render() {
@@ -59,6 +60,8 @@ Article.propTypes = {
 }
 
 export default connect(
-  null,
+  (state, ownProps) => ({
+    article: selectedArticles(state, ownProps)
+  }),
   { deleteArticle }
 )(Article)

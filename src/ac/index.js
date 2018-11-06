@@ -1,4 +1,10 @@
-import { INCREMENT, DELETE, SELECT, SELECT_DATE } from '../constants'
+import {
+  INCREMENT,
+  DELETE,
+  SELECT,
+  SELECT_DATE,
+  ADD_COMMENT
+} from '../constants'
 
 export function increment() {
   return {
@@ -24,5 +30,14 @@ export function selectDateRange(dateRange) {
   return {
     type: SELECT_DATE,
     payload: { dateRange }
+  }
+}
+
+export function addComment(comment, articleId) {
+  console.log('action is')
+  return {
+    type: ADD_COMMENT,
+    payload: { comment, articleId },
+    generateId: true
   }
 }

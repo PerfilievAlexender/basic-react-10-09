@@ -24,15 +24,14 @@ class CommentList extends Component {
         >
           {this.body}
         </CSSTransition>
-        <CommentForm />
       </div>
     )
   }
 
   get body() {
-    const { comments, isOpen, openItem } = this.props
-    const commentList = comments ? (
-      comments.map((id) => (
+    const { article, isOpen, openItem } = this.props
+    const commentList = article.comments ? (
+      article.comments.map((id) => (
         <li key={id} className="test_comment">
           <Comment id={id} />
         </li>
@@ -43,7 +42,12 @@ class CommentList extends Component {
 
     if (!openItem && isOpen) return null
 
-    return <ul>{commentList}</ul>
+    return (
+      <div>
+        <ul>{commentList}</ul>
+        <CommentForm id={article.id} />
+      </div>
+    )
   }
 }
 

@@ -37,7 +37,7 @@ class Article extends PureComponent {
     return (
       <div className="test_article--body">
         {article.text}
-        <CommentList comments={article.comments} isOpen={isOpen} />
+        <CommentList article={article} isOpen={isOpen} />
       </div>
     )
   }

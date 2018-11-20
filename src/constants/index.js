@@ -7,3 +7,5 @@ export const SELECT = 'SELECT'
 export const SELECT_DATE = 'SELECT_DATE'
 
 export const ADD_COMMENT = 'ADD_COMMENT'
+
+export const LOAD_ARTICLES = 'LOAD_ARTICLES'

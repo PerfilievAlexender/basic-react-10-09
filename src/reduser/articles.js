@@ -1,13 +1,11 @@
-import { DELETE, ADD_COMMENT } from '../constants'
-import { normalizedArticles } from '../fixtures'
+import { DELETE, ADD_COMMENT, LOAD_ALL_ARTICLES } from '../constants'
 import { arrToObj } from './utils'
 
-const initialState = arrToObj(normalizedArticles)
-
-export default (articlesState = initialState, action) => {
-  const { type, payload, randomId } = action
+export default (articlesState = [], action) => {
+  const { type, payload, randomId, response } = action
   console.log('action in reduser articles', action)
   console.log('payload in reduser articles', payload)
+  console.log('response', response)
 
   switch (type) {
     case DELETE:
@@ -24,6 +22,9 @@ export default (articlesState = initialState, action) => {
           comments: (article.comments || []).concat(randomId)
         }
       }
+
+    case LOAD_ALL_ARTICLES:
+      return arrToObj(response)
 
     default:
       return articlesState

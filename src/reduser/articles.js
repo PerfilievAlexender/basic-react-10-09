@@ -1,7 +1,20 @@
-import { DELETE, ADD_COMMENT, LOAD_ALL_ARTICLES } from '../constants'
+import {
+  DELETE,
+  ADD_COMMENT,
+  LOAD_ALL_ARTICLES,
+  SUCCESS,
+  START
+} from '../constants'
 import { arrToObj } from './utils'
 
-export default (articlesState = [], action) => {
+const ReduserArticles = {
+  entities: {},
+  loading: false,
+  loaded: false,
+  error: false
+}
+
+export default (articlesState = ReduserArticles, action) => {
   const { type, payload, randomId, response } = action
   console.log('action in reduser articles', action)
   console.log('payload in reduser articles', payload)
@@ -23,8 +36,19 @@ export default (articlesState = [], action) => {
         }
       }
 
-    case LOAD_ALL_ARTICLES:
-      return arrToObj(response)
+    case LOAD_ALL_ARTICLES + START:
+      return {
+        ...articlesState,
+        loading: true
+      }
+
+    case LOAD_ALL_ARTICLES + SUCCESS:
+      return {
+        ...articlesState,
+        entities: arrToObj(response),
+        loading: false,
+        loaded: true
+      }
 
     default:
       return articlesState

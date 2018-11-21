@@ -7,6 +7,7 @@ export const commentsId = (_, ownProps) => ownProps.id
 export const commentsData = (state) => state.comments
 export const articleId = (_, ownProps) => ownProps.id
 export const articlesLoading = (state) => state.articles.loading
+export const articleTextLoading = (state) => state.articles.textLoad
 
 export const articlesListSelector = createSelector(
   articlesMapSelector,
@@ -34,7 +35,6 @@ export const filteredArticles = createSelector(
   dateSelector,
   articlesListSelector,
   (selected, dateRange, articles) => {
-    console.log('--- select')
     const { from, to } = dateRange
 
     return articles.filter((article) => {

@@ -4,8 +4,9 @@ import PropTypes from 'prop-types'
 import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
 import { connect } from 'react-redux'
-import { deleteArticle } from '../../ac'
-import { selectedArticles } from '../../selectors'
+import { deleteArticle, loadArticle } from '../../ac'
+import { selectedArticles, articleTextLoading } from '../../selectors'
+import Loader from '../common/loader'
 
 class Article extends PureComponent {
   render() {
@@ -32,9 +33,11 @@ class Article extends PureComponent {
 
   get body() {
     const { article, isOpen } = this.props
-    if (!isOpen) {
-      return null
-    }
+
+    if (!isOpen) return null
+
+    if (this.props.loading) return <Loader />
+
     return (
       <div className="test_article--body">
         {article.text}
@@ -51,6 +54,11 @@ class Article extends PureComponent {
     const { deleteArticle, article } = this.props
     deleteArticle(article.id)
   }
+
+  componentDidUpdate(prevProps) {
+    const { loadArticle, id } = this.props
+    if (!prevProps.isOpen && this.props.isOpen) loadArticle(id)
+  }
 }
 
 Article.propTypes = {
@@ -61,7 +69,8 @@ Article.propTypes = {
 
 export default connect(
   (state, ownProps) => ({
-    article: selectedArticles(state, ownProps)
+    article: selectedArticles(state, ownProps),
+    loading: articleTextLoading(state)
   }),
-  { deleteArticle }
+  { deleteArticle, loadArticle }
 )(Article)

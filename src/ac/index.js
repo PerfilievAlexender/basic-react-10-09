@@ -4,7 +4,8 @@ import {
   SELECT,
   SELECT_DATE,
   ADD_COMMENT,
-  LOAD_ALL_ARTICLES
+  LOAD_ALL_ARTICLES,
+  LOAD_ARTICLE
 } from '../constants'
 
 export function increment() {
@@ -16,7 +17,7 @@ export function increment() {
 export function deleteArticle(id) {
   return {
     type: DELETE,
-    payload: id
+    payload: { id }
   }
 }
 
@@ -47,5 +48,13 @@ export function loadAllArticles() {
   return {
     type: LOAD_ALL_ARTICLES,
     articleApi: '/api/article'
+  }
+}
+
+export function loadArticle(id) {
+  return {
+    type: LOAD_ARTICLE,
+    payload: { id },
+    articleApi: `/api/article/${id}`
   }
 }

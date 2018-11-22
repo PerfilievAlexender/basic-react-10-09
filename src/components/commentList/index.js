@@ -7,8 +7,26 @@ import './style.css'
 import CommentForm from '../commentForm'
 import { connect } from 'react-redux'
 import { loadComments } from '../../ac'
+import {
+  commentListSelector,
+  commentsLoading,
+  commentsLoaded
+} from '../../selectors'
 
 class CommentList extends Component {
+  componentDidUpdate(prevProps) {
+    console.log('qqqqqqqq', prevProps.isOpen)
+    console.log('qqqqqqqq', this.props.isOpen)
+    const {
+      loadComments,
+      article,
+      isOpen,
+      commentsLoading,
+      commentsLoaded
+    } = this.props
+    if (isOpen && !commentsLoading && !commentsLoaded) loadComments(article.id)
+  }
+
   render() {
     const { isOpen, handleClick } = this.props
 
@@ -31,11 +49,11 @@ class CommentList extends Component {
   }
 
   get body() {
-    const { article, isOpen, openItem } = this.props
-    const commentList = article.comments ? (
-      article.comments.map((id) => (
-        <li key={id} className="test_comment">
-          <Comment id={id} />
+    const { article, isOpen, openItem, comments } = this.props
+    const commentList = comments.length ? (
+      comments.map((comment) => (
+        <li key={comment.id} className="test_comment">
+          <Comment comment={comment} />
         </li>
       ))
     ) : (
@@ -51,11 +69,6 @@ class CommentList extends Component {
       </div>
     )
   }
-
-  componentDidUpdate(oldProps) {
-    const { loadComments, article, isOpen } = this.props
-    if (isOpen) loadComments(article.id)
-  }
 }
 
 CommentList.propTypes = {
@@ -66,6 +79,10 @@ CommentList.propTypes = {
 }
 
 export default connect(
-  null,
+  (state) => ({
+    comments: commentListSelector(state),
+    commentsLoading: commentsLoading(state),
+    commentsLoaded: commentsLoaded(state)
+  }),
   { loadComments }
 )(toggleOpen(CommentList))

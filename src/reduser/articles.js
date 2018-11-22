@@ -4,7 +4,8 @@ import {
   LOAD_ALL_ARTICLES,
   SUCCESS,
   START,
-  LOAD_ARTICLE
+  LOAD_ARTICLE,
+  LOAD_COMMENTS
 } from '../constants'
 import { arrToObj } from './utils'
 
@@ -17,9 +18,10 @@ const ReduserArticles = {
 }
 
 export default (articlesState = ReduserArticles, action) => {
-  const { type, payload, randomId, response } = action
+  const { type, payload, randomId, response, commentsLoaded } = action
   console.log('action in reduser articles', action)
   console.log('payload in reduser articles', payload)
+  console.log('commentsLoaded in reduser articles', commentsLoaded)
 
   switch (type) {
     case DELETE:
@@ -69,6 +71,32 @@ export default (articlesState = ReduserArticles, action) => {
         entities: arrToObj(response),
         loading: false,
         loaded: true
+      }
+
+    case LOAD_COMMENTS + START:
+      return {
+        ...articlesState,
+        entities: {
+          ...articlesState.entities,
+          [payload.id]: {
+            ...articlesState.entities[payload.id],
+            commentsLoading: true,
+            commentsLoaded: false
+          }
+        }
+      }
+
+    case LOAD_COMMENTS + SUCCESS:
+      return {
+        ...articlesState,
+        entities: {
+          ...articlesState.entities,
+          [payload.id]: {
+            ...articlesState.entities[payload.id],
+            commentsLoading: false,
+            commentsLoaded: true
+          }
+        }
       }
 
     default:

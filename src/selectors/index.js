@@ -8,6 +8,9 @@ export const commentsData = (state) => state.comments.entities
 export const articleId = (_, ownProps) => ownProps.id
 export const articlesLoading = (state) => state.articles.loading
 export const articleTextLoading = (state) => state.articles.textLoad
+export const commentsLoading = (state) =>
+  state.articles.entities.commentsLoading
+export const commentsLoaded = (state) => state.articles.entities.commentsLoaded
 
 export const articlesListSelector = createSelector(
   articlesMapSelector,

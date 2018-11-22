@@ -6,12 +6,8 @@ import { selectedComments } from '../selectors'
 class Comment extends Component {
   render() {
     const { comment } = this.props
-    return (
-      <div>
-        <b>{comment.user}</b>
-        <p>{comment.text}</p>
-      </div>
-    )
+    console.log('comment', comment)
+    return <div />
   }
 }
 

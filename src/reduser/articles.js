@@ -46,9 +46,6 @@ export default (articlesState = ReduserArticles, action) => {
       }
 
     case LOAD_ARTICLE + SUCCESS:
-      const articleById = articlesState.entities[payload.id]
-      console.log('test article text', articleById)
-      console.log('test response', response)
       return {
         ...articlesState,
         entities: {

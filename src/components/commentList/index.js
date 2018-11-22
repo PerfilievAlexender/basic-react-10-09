@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
 import CommentForm from '../commentForm'
+import { connect } from 'react-redux'
+import { loadComments } from '../../ac'
 
 class CommentList extends Component {
   render() {
@@ -49,6 +51,11 @@ class CommentList extends Component {
       </div>
     )
   }
+
+  componentDidUpdate(oldProps) {
+    const { loadComments, article, isOpen } = this.props
+    if (isOpen) loadComments(article.id)
+  }
 }
 
 CommentList.propTypes = {
@@ -58,4 +65,7 @@ CommentList.propTypes = {
   openItem: PropTypes.bool
 }
 
-export default toggleOpen(CommentList)
+export default connect(
+  null,
+  { loadComments }
+)(toggleOpen(CommentList))

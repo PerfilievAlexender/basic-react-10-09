@@ -1,16 +1,34 @@
-import { normalizedComments } from '../fixtures'
+//import { normalizedComments } from '../fixtures'
 import { arrToObj } from './utils'
-import { ADD_COMMENT } from '../constants'
+import { ADD_COMMENT, LOAD_COMMENTS, START, SUCCESS } from '../constants'
 
-export default (state = arrToObj(normalizedComments), action) => {
-  const { type, payload } = action
+const ReduserComments = {
+  entities: {},
+  loaded: null
+}
+
+export default (commentsState = ReduserComments, action) => {
+  const { type, payload, response } = action
   switch (type) {
+    case LOAD_COMMENTS + START:
+      return {
+        ...commentsState,
+        loaded: false
+      }
+
+    case LOAD_COMMENTS + SUCCESS:
+      return {
+        ...commentsState,
+        entities: arrToObj(response),
+        loaded: true
+      }
+
     case ADD_COMMENT:
       return {
-        ...state,
+        ...commentsState,
         [action.randomId]: { id: action.randomId, ...payload.comment }
       }
     default:
-      return state
+      return commentsState
   }
 }

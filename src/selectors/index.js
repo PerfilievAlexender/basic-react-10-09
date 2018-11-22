@@ -4,7 +4,7 @@ export const selectedSelector = (state) => state.filters.selected
 export const dateSelector = (state) => state.filters.dateRange
 export const articlesMapSelector = (state) => state.articles.entities
 export const commentsId = (_, ownProps) => ownProps.id
-export const commentsData = (state) => state.comments
+export const commentsData = (state) => state.comments.entities
 export const articleId = (_, ownProps) => ownProps.id
 export const articlesLoading = (state) => state.articles.loading
 export const articleTextLoading = (state) => state.articles.textLoad
@@ -14,8 +14,12 @@ export const articlesListSelector = createSelector(
   (articleMap) => Object.values(articleMap)
 )
 
+export const commentListSelector = createSelector(commentsData, (commentMap) =>
+  Object.values(commentMap)
+)
+
 export const selectedComments = createSelector(
-  commentsData,
+  commentListSelector,
   commentsId,
   (comments, id) => {
     return comments[id]

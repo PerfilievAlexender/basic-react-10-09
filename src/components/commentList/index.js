@@ -7,24 +7,25 @@ import './style.css'
 import CommentForm from '../commentForm'
 import { connect } from 'react-redux'
 import { loadComments } from '../../ac'
-import {
-  commentListSelector,
-  commentsLoading,
-  commentsLoaded
-} from '../../selectors'
+import { commentListSelector, commentsLoading } from '../../selectors'
+import Loader from '../common/loader'
 
 class CommentList extends Component {
   componentDidUpdate(prevProps) {
-    console.log('qqqqqqqq', prevProps.isOpen)
-    console.log('qqqqqqqq', this.props.isOpen)
-    const {
-      loadComments,
-      article,
-      isOpen,
-      commentsLoading,
-      commentsLoaded
-    } = this.props
-    if (isOpen && !commentsLoading && !commentsLoaded) loadComments(article.id)
+    const { loadComments, article, openItem } = this.props
+
+    console.log('article.commentsLoading', article.commentsLoading)
+    console.log('article.commentsLoaded', article.commentsLoaded)
+    if (
+      openItem &&
+      !prevProps.openItem &&
+      !article.commentsLoading &&
+      !article.commentsLoaded
+    ) {
+      loadComments(article.id)
+      console.log('article.commentsLoading2', article.commentsLoading)
+      console.log('article.commentsLoaded2', article.commentsLoaded)
+    }
   }
 
   render() {
@@ -62,6 +63,8 @@ class CommentList extends Component {
 
     if (!openItem && isOpen) return null
 
+    if (!this.props.loading) return <Loader />
+
     return (
       <div>
         <ul>{commentList}</ul>
@@ -81,8 +84,7 @@ CommentList.propTypes = {
 export default connect(
   (state) => ({
     comments: commentListSelector(state),
-    commentsLoading: commentsLoading(state),
-    commentsLoaded: commentsLoaded(state)
+    loading: commentsLoading(state)
   }),
   { loadComments }
 )(toggleOpen(CommentList))

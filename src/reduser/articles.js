@@ -18,10 +18,9 @@ const ReduserArticles = {
 }
 
 export default (articlesState = ReduserArticles, action) => {
-  const { type, payload, randomId, response, commentsLoaded } = action
+  const { type, payload, randomId, response } = action
   console.log('action in reduser articles', action)
   console.log('payload in reduser articles', payload)
-  console.log('commentsLoaded in reduser articles', commentsLoaded)
 
   switch (type) {
     case DELETE:

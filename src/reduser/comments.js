@@ -26,7 +26,10 @@ export default (commentsState = ReduserComments, action) => {
     case ADD_COMMENT:
       return {
         ...commentsState,
-        [action.randomId]: { id: action.randomId, ...payload.comment }
+        entities: {
+          ...commentsState.entities,
+          [action.randomId]: { id: action.randomId, ...payload.comment }
+        }
       }
     default:
       return commentsState

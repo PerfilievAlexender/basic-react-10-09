@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import ArticlePage from './components/routes/articles'
-import SelectFilter from './components/filters/select'
-import DayPickerFilter from './components/filters/dayPicker'
+import Filters from './components/filters/index'
 import Counter from './components/counter'
-import { Route, NavLink } from 'react-router-dom'
+import { Route, NavLink, Switch } from 'react-router-dom'
 
 class App extends Component {
   render() {
@@ -14,20 +13,18 @@ class App extends Component {
             <NavLink to="/counter">Counter</NavLink>
           </div>
           <div>
-            <NavLink to="/daySelect">Day select filter</NavLink>
-          </div>
-          <div>
-            <NavLink to="/select">Select filter</NavLink>
+            <NavLink to="/filters">Filters</NavLink>
           </div>
           <div>
             <NavLink to="/articles">Articles</NavLink>
           </div>
         </div>
-
-        <Route path="/counter" component={Counter} />
-        <Route path="/daySelect" component={DayPickerFilter} />
-        <Route path="/select" component={SelectFilter} />
-        <Route path="/articles" component={ArticlePage} />
+        <Switch>
+          <Route path="/counter" component={Counter} />
+          <Route path="/filters" component={Filters} />
+          <Route path="/articles" component={ArticlePage} />
+          <Route path="*" render={() => <h2>Not found page</h2>} />
+        </Switch>
       </div>
     )
   }

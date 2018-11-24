@@ -6,7 +6,8 @@ class Comment extends Component {
     const { comment } = this.props
     return (
       <div>
-        {comment.text} BY <b>{comment.user}</b>
+        {comment.text}
+        <b> by {comment.user}</b>
       </div>
     )
   }

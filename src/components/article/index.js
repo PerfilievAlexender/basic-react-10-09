@@ -11,6 +11,9 @@ import Loader from '../common/loader'
 class Article extends PureComponent {
   render() {
     const { article, isOpen } = this.props
+
+    if (!article) return null
+
     return (
       <div>
         <div>
@@ -55,16 +58,15 @@ class Article extends PureComponent {
     deleteArticle(article.id)
   }
 
-  componentDidUpdate(prevProps) {
-    const { loadArticle, id } = this.props
-    if (!prevProps.isOpen && this.props.isOpen) loadArticle(id)
+  componentDidMount() {
+    const { loadArticle, article, id } = this.props
+    if (!article || !article.text) loadArticle(id)
   }
 }
 
 Article.propTypes = {
-  toggleOpen: PropTypes.func,
   isOpen: PropTypes.bool,
-  article: PropTypes.object.isRequired
+  article: PropTypes.object
 }
 
 export default connect(

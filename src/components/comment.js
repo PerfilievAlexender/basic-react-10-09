@@ -6,7 +6,7 @@ import { selectedComments } from '../selectors'
 class Comment extends Component {
   render() {
     const { comment } = this.props
-    console.log('watching on comments', comment)
+    console.log(this.props.id)
 
     if (!comment) return null
 

@@ -3,6 +3,7 @@ import ArticlePage from './components/routes/articles'
 import Filters from './components/filters/index'
 import Counter from './components/counter'
 import { Route, NavLink, Switch } from 'react-router-dom'
+import CommentPage from './components/routes/commentPage'
 
 class App extends Component {
   render() {
@@ -18,11 +19,15 @@ class App extends Component {
           <div>
             <NavLink to="/articles">Articles</NavLink>
           </div>
+          <div>
+            <NavLink to="/comment">Comments</NavLink>
+          </div>
         </div>
         <Switch>
           <Route path="/counter" component={Counter} />
           <Route path="/filters" component={Filters} />
           <Route path="/articles" component={ArticlePage} />
+          <Route path="/comment" component={CommentPage} />
           <Route path="*" render={() => <h2>Not found page</h2>} />
         </Switch>
       </div>

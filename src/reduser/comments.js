@@ -1,6 +1,11 @@
-//import { normalizedComments } from '../fixtures'
 import { arrToObj } from './utils'
-import { ADD_COMMENT, LOAD_COMMENTS, START, SUCCESS } from '../constants'
+import {
+  ADD_COMMENT,
+  LOAD_ALL_COMMENTS,
+  LOAD_COMMENTS,
+  START,
+  SUCCESS
+} from '../constants'
 
 const ReduserComments = {
   entities: {},
@@ -31,6 +36,13 @@ export default (commentsState = ReduserComments, action) => {
           [action.randomId]: { id: action.randomId, ...payload.comment }
         }
       }
+
+    case LOAD_ALL_COMMENTS:
+      return {
+        ...commentsState,
+        entities: arrToObj(response.records)
+      }
+
     default:
       return commentsState
   }

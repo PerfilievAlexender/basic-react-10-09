@@ -52,6 +52,8 @@ class CommentList extends Component {
   get body() {
     const { article, isOpen, openItem } = this.props
 
+    console.log('watching on props', this.props)
+
     if (!article.comments) return null
 
     console.log('watching on article', article)
@@ -60,7 +62,7 @@ class CommentList extends Component {
     const commentList = article.comments.length ? (
       article.comments.map((id) => (
         <li key={id} className="test_comment">
-          <Comment comment={id} />
+          <Comment id={id} />
         </li>
       ))
     ) : (

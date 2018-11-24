@@ -9,8 +9,10 @@ import {
   START,
   SUCCESS,
   FAIL,
-  LOAD_COMMENTS
+  LOAD_COMMENTS,
+  LOAD_ALL_COMMENTS
 } from '../constants'
+import comment from '../components/comment'
 
 export function increment() {
   return {
@@ -112,6 +114,19 @@ export function loadComments(id) {
           type: LOAD_COMMENTS + FAIL,
           payload: { id },
           error
+        })
+      )
+  }
+}
+
+export function loadAllComments() {
+  return (dispatch) => {
+    fetch('/api/comment')
+      .then((res) => res.json())
+      .then((response) =>
+        dispatch({
+          type: LOAD_ALL_COMMENTS,
+          response
         })
       )
   }

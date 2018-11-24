@@ -7,7 +7,7 @@ import './style.css'
 import CommentForm from '../commentForm'
 import { connect } from 'react-redux'
 import { loadComments } from '../../ac'
-import { commentListSelector, commentsLoading } from '../../selectors'
+import { commentsLoading } from '../../selectors'
 import Loader from '../common/loader'
 
 class CommentList extends Component {
@@ -50,11 +50,17 @@ class CommentList extends Component {
   }
 
   get body() {
-    const { article, isOpen, openItem, comments } = this.props
-    const commentList = comments.length ? (
-      comments.map((comment) => (
-        <li key={comment.id} className="test_comment">
-          <Comment comment={comment} />
+    const { article, isOpen, openItem } = this.props
+
+    if (!article.comments) return null
+
+    console.log('watching on article', article)
+    console.log('watching on props', this.props)
+
+    const commentList = article.comments.length ? (
+      article.comments.map((id) => (
+        <li key={id} className="test_comment">
+          <Comment comment={id} />
         </li>
       ))
     ) : (
@@ -75,7 +81,7 @@ class CommentList extends Component {
 }
 
 CommentList.propTypes = {
-  comments: PropTypes.array,
+  article: PropTypes.object,
   isOpen: PropTypes.bool,
   handleClick: PropTypes.func,
   openItem: PropTypes.bool
@@ -83,7 +89,6 @@ CommentList.propTypes = {
 
 export default connect(
   (state) => ({
-    comments: commentListSelector(state),
     loading: commentsLoading(state)
   }),
   { loadComments }

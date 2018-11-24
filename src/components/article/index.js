@@ -7,10 +7,11 @@ import { connect } from 'react-redux'
 import { deleteArticle, loadArticle } from '../../ac'
 import { selectedArticles, articleTextLoading } from '../../selectors'
 import Loader from '../common/loader'
+import toggleOpen from '../../decorators/toggleOpen'
 
 class Article extends PureComponent {
   render() {
-    const { article, isOpen } = this.props
+    const { article, openItem, handleClick } = this.props
 
     if (!article) return null
 
@@ -18,8 +19,8 @@ class Article extends PureComponent {
       <div>
         <div>
           <h3 ref={this.titleRef}>{article.title}</h3>
-          <button onClick={this.handleClick} className="test_openArticle">
-            {isOpen ? 'close' : 'open'}
+          <button onClick={handleClick} className="test_openArticle">
+            {openItem ? 'open' : 'close'}
           </button>
           <button onClick={this.handleDeleteClick}>delete</button>
         </div>
@@ -35,23 +36,23 @@ class Article extends PureComponent {
   }
 
   get body() {
-    const { article, isOpen } = this.props
-
-    if (!isOpen) return null
+    const { article, isOpen, openItem } = this.props
+    const articleText = !openItem && isOpen ? article.text : null
 
     if (this.props.loading) return <Loader />
 
     return (
       <div className="test_article--body">
-        {article.text}
+        {articleText}
         <CommentList article={article} isOpen={isOpen} />
       </div>
     )
   }
 
-  //titleRef = (ref) => console.log(ref)
-
-  handleClick = () => this.props.toggleOpen(this.props.article.id)
+  startLoadingArticleText = () => {
+    const { loadArticle, article, id } = this.props
+    if (!article || !article.text) return loadArticle(id)
+  }
 
   handleDeleteClick = () => {
     const { deleteArticle, article } = this.props
@@ -59,8 +60,11 @@ class Article extends PureComponent {
   }
 
   componentDidMount() {
-    const { loadArticle, article, id } = this.props
-    if (!article || !article.text) loadArticle(id)
+    this.startLoadingArticleText()
+  }
+
+  componentWillMount() {
+    this.startLoadingArticleText()
   }
 }
 
@@ -75,4 +79,4 @@ export default connect(
     loading: articleTextLoading(state)
   }),
   { deleteArticle, loadArticle }
-)(Article)
+)(toggleOpen(Article))

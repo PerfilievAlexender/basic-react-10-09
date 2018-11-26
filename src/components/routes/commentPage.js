@@ -1,25 +1,24 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { loadAllComments } from '../../ac'
-import { commentListSelector } from '../../selectors'
+import CommentsOnPage from '../commentsOnPage'
+import { Route } from 'react-router-dom'
 
 export class CommentPage extends Component {
   render() {
-    const { comments } = this.props
-    const commentsList = comments.map((comment) => (
-      <li key={comment.id}>
-        {comment.text} by {comment.user}
-      </li>
-    ))
-    return <div>{commentsList}</div>
+    return (
+      <div>
+        <Route path="/comments/:page" render={this.getCommentsOnPage} />
+      </div>
+    )
   }
 
-  componentDidMount() {
-    this.props.loadAllComments()
+  getCommentsOnPage = ({ match }) => {
+    return (
+      <div>
+        menu
+        <CommentsOnPage page={match.params.page} />
+      </div>
+    )
   }
 }
 
-export default connect(
-  (state) => ({ comments: commentListSelector(state) }),
-  { loadAllComments }
-)(CommentPage)
+export default CommentPage

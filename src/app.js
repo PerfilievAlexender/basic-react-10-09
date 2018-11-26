@@ -20,14 +20,14 @@ class App extends Component {
             <NavLink to="/articles">Articles</NavLink>
           </div>
           <div>
-            <NavLink to="/comment">Comments</NavLink>
+            <NavLink to="/comments/1">Comments</NavLink>
           </div>
         </div>
         <Switch>
           <Route path="/counter" component={Counter} />
           <Route path="/filters" component={Filters} />
           <Route path="/articles" component={ArticlePage} />
-          <Route path="/comment" component={CommentPage} />
+          <Route path="/comments" component={CommentPage} />
           <Route path="*" render={() => <h2>Not found page</h2>} />
         </Switch>
       </div>

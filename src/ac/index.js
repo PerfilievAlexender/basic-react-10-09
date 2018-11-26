@@ -119,13 +119,19 @@ export function loadComments(id) {
   }
 }
 
-export function loadAllComments() {
+export function loadPageComments(page) {
   return (dispatch) => {
-    fetch('/api/comment')
+    dispatch({
+      type: LOAD_ALL_COMMENTS + START,
+      payload: { page }
+    })
+
+    fetch(`/api/comment?limit=5&offset=${(page - 1) * 5}`)
       .then((res) => res.json())
       .then((response) =>
         dispatch({
-          type: LOAD_ALL_COMMENTS,
+          type: LOAD_ALL_COMMENTS + SUCCESS,
+          payload: { page },
           response
         })
       )

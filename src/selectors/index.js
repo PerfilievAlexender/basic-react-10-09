@@ -9,6 +9,9 @@ export const articleId = (_, ownProps) => ownProps.id
 export const articlesLoading = (state) => state.articles.loading
 export const articleTextLoading = (state) => state.articles.textLoad
 export const commentsLoading = (state) => state.comments.loaded
+export const totalCommentsRecord = (state) => state.comments.totalRecords
+export const commentsPage = (_, ownProps) => ownProps.page
+export const commentsPageLoaded = (state) => state.comments.commentsLoaded
 
 export const articlesListSelector = createSelector(
   articlesMapSelector,
@@ -20,7 +23,7 @@ export const commentListSelector = createSelector(commentsData, (commentMap) =>
 )
 
 export const selectedComments = createSelector(
-  commentListSelector,
+  commentsData,
   commentsId,
   (comments, id) => {
     return comments[id]
